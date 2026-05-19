@@ -1,0 +1,20 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./.loupe:/app/.loupe
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      PUBLIC_API_BASE_URL: http://api:8000
+    depends_on:
+      - api
+    ports:
+      - "4173:4173"
