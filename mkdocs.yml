@@ -1,0 +1,23 @@
+site_name: Loupe
+site_description: Local-first debugging and replay for AI agents.
+site_url: https://itseasy21.github.io/loupe/
+repo_url: https://github.com/itseasy21/loupe
+repo_name: itseasy21/loupe
+exclude_docs: |
+  GO_TO_MARKET_CHECKLIST.md
+  NAME_IDEATION.md
+  PROBLEM_STATEMENT_INVESTOR_PITCH.md
+  PRODUCT_SCOPE.md
+  STRATEGIC_DECISIONS.md
+  TICKETS.md
+nav:
+  - Home: index.md
+  - What Is Loupe?: what-is-loupe.md
+  - Ideation: ideation.md
+  - Quickstart: quickstart.md
+  - How To Debug An Agent: how-to-debug-agent.md
+markdown_extensions:
+  - admonition
+  - tables
+theme:
+  name: mkdocs
