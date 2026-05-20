@@ -45,9 +45,9 @@ dev = [
 loupe = "loupe.cli.main:app"
 
 [project.urls]
-Homepage = "https://github.com/loupe/loupe"
-Issues = "https://github.com/loupe/loupe/issues"
-Documentation = "https://github.com/loupe/loupe#readme"
+Homepage = "https://github.com/itseasy21/loupe"
+Issues = "https://github.com/itseasy21/loupe/issues"
+Documentation = "https://itseasy21.github.io/loupe/"
 
 [tool.hatch.build.targets.wheel]
 packages = ["loupe"]
