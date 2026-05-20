@@ -3,8 +3,10 @@
 Install Loupe:
 
 ```bash
-pip install loupe
+pip install loupe-agent
 ```
+
+The PyPI package is `loupe-agent`; the Python import and CLI remain `loupe`.
 
 Record a trace:
 

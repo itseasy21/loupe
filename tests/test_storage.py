@@ -582,5 +582,5 @@ def test_parquet_store_requires_optional_dependency(
     monkeypatch.delitem(sys.modules, "pyarrow.parquet", raising=False)
     monkeypatch.setattr("builtins.__import__", blocked_import)
 
-    with pytest.raises(RuntimeError, match=r"loupe\[arrow\]"):
+    with pytest.raises(RuntimeError, match=r"loupe-agent\[arrow\]"):
         ParquetTraceStore(tmp_path / "traces.parquet").read_summaries()

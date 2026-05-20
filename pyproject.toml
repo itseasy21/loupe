@@ -3,7 +3,7 @@ requires = ["hatchling>=1.25"]
 build-backend = "hatchling.build"
 
 [project]
-name = "loupe"
+name = "loupe-agent"
 version = "0.1.0"
 description = "Open-source debugger for AI agents."
 readme = "README.md"

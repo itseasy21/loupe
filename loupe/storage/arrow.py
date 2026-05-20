@@ -11,7 +11,7 @@ def _require_pyarrow() -> tuple[Any, Any]:
         import pyarrow as pa  # type: ignore[import-not-found]
         import pyarrow.parquet as pq  # type: ignore[import-not-found]
     except ImportError as exc:
-        raise RuntimeError("Install loupe[arrow] to use Parquet storage.") from exc
+        raise RuntimeError("Install loupe-agent[arrow] to use Parquet storage.") from exc
     return pa, pq
 
 

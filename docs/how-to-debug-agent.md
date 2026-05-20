@@ -5,8 +5,10 @@ This guide walks through a local debugging loop with Loupe: record a trace, insp
 ## 1. Install Loupe
 
 ```bash
-python -m pip install loupe
+python -m pip install loupe-agent
 ```
+
+The PyPI package is `loupe-agent`; the Python import package and CLI remain `loupe`.
 
 For local development from this repository:
 
