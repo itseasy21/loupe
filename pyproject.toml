@@ -52,6 +52,25 @@ Documentation = "https://itseasy21.github.io/loupe/"
 [tool.hatch.build.targets.wheel]
 packages = ["loupe"]
 
+[tool.hatch.build.targets.sdist]
+exclude = [
+  ".claude",
+  ".omc",
+  ".github",
+  ".changeset",
+  ".dockerignore",
+  ".pre-commit-config.yaml",
+  ".gitignore",
+  "docker-compose.yml",
+  "Dockerfile",
+  "frontend",
+  "node_modules",
+  "package-lock.json",
+  "package.json",
+  "site",
+  "uv.lock",
+]
+
 [tool.ruff]
 line-length = 100
 target-version = "py310"

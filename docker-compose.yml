@@ -12,8 +12,9 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    environment:
-      PUBLIC_API_BASE_URL: http://api:8000
+      args:
+        # Inlined by Vite at build time; defaults to localhost when unset.
+        PUBLIC_API_BASE_URL: http://api:8000
     depends_on:
       - api
     ports:

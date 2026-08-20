@@ -2,6 +2,10 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
+# Inlined into the client bundle by Vite at build time; pass via build arg.
+ARG PUBLIC_API_BASE_URL=http://127.0.0.1:8000
+ENV PUBLIC_API_BASE_URL=$PUBLIC_API_BASE_URL
+
 COPY package.json package-lock.json ./
 RUN npm ci
 
