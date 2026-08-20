@@ -1,11 +1,6 @@
 name: Release
 
 on:
-  workflow_call:
-    inputs:
-      tag_name:
-        required: true
-        type: string
   workflow_dispatch:
     inputs:
       tag_name:
@@ -15,14 +10,14 @@ on:
 
 permissions:
   contents: read
-  id-token: write
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
-    environment: pypi
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag_name }}
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -34,5 +29,23 @@ jobs:
         run: python -m build
       - name: Check distribution metadata
         run: python -m twine check dist/*
+      - name: Upload distribution artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
       - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1

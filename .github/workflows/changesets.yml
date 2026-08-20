@@ -7,7 +7,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  id-token: write
 
 concurrency:
   group: changesets-${{ github.ref }}
@@ -85,10 +84,41 @@ jobs:
           gh release create "$TAG" --target "$GITHUB_SHA" --title "$TAG" --generate-notes
           echo "created=true" >> "$GITHUB_OUTPUT"
 
-  publish:
+  build:
     needs: release
     if: needs.release.outputs.should_publish == 'true'
-    uses: ./.github/workflows/release.yml
-    with:
-      tag_name: ${{ needs.release.outputs.tag_name }}
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install release build tools
+        run: python -m pip install build twine
+      - name: Verify release tag and version metadata
+        run: python scripts/version_sync.py check-tag "${{ needs.release.outputs.tag_name }}"
+      - name: Build distribution artifacts
+        run: python -m build
+      - name: Check distribution metadata
+        run: python -m twine check dist/*
+      - name: Upload distribution artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: [release, build]
+    if: needs.release.outputs.should_publish == 'true'
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
