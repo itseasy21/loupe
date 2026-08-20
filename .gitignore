@@ -21,5 +21,6 @@ docs/*
 !docs/what-is-loupe.md
 !docs/ideation.md
 !docs/how-to-debug-agent.md
+node_modules/
 frontend/node_modules/
 frontend/.svelte-kit/

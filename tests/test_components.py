@@ -6,6 +6,7 @@ from types import ModuleType, SimpleNamespace
 import pytest
 from fastapi.testclient import TestClient
 
+from loupe import __version__
 from loupe.api.server import create_app
 from loupe.causal.attributor import rank_failed_spans
 from loupe.causal.graph import build_causal_graph
@@ -169,8 +170,10 @@ def test_api_lists_loads_and_analyzes_traces(tmp_path) -> None:  # type: ignore[
     )
     second.finish()
     store.save_trace(second)
-    client = TestClient(create_app(database))
+    app = create_app(database)
+    client = TestClient(app)
 
+    assert app.version == __version__
     assert client.get("/health").json() == {"status": "ok"}
     response = client.get("/traces", params={"limit": 1, "offset": 0})
     assert response.status_code == 200

@@ -22,6 +22,8 @@ jobs:
         run: python -m ruff check .
       - name: Type check
         run: python -m mypy loupe
+      - name: Verify version metadata
+        run: python scripts/version_sync.py check
       - name: Test
         run: python -m pytest
       - name: Build wheel

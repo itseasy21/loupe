@@ -5,12 +5,13 @@ from typing import Any
 
 from fastapi import FastAPI, HTTPException
 
+from loupe import __version__
 from loupe.storage import create_trace_store
 from loupe.storage.sqlite import SQLiteTraceStore
 
 
 def create_app(database_path: str | Path = ".loupe/traces.db") -> FastAPI:
-    app = FastAPI(title="Loupe API", version="0.1.0")
+    app = FastAPI(title="Loupe API", version=__version__)
     store = create_trace_store(database_path)
 
     @app.get("/health")
